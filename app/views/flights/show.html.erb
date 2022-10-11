@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @flight.name %>
+</p>
+
+<p>
+  <strong>Flight Class:</strong>
+  <%= @flight.flight_class %>
+</p>
+
+<p>
+  <strong>Manufacturer:</strong>
+  <%= @flight.manufacturer %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @flight.capacity %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @flight.status %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @flight.cost %>
+</p>
+
+<%= link_to 'Edit ✏️', edit_flight_path(@flight) %> |
+<%= link_to '🔙Back', flights_path %>

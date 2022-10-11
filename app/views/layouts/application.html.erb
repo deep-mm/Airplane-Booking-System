@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Airplane Booking System ✈️</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %> 
+  </head>
+
+  <body>
+    <h1><%= link_to 'Airplane Booking ✈️', root_path %></h1>
+    <% if current_user %>
+    Logged in as <%= link_to current_user["name"], current_user %><br>
+    <% if current_user["is_admin"] == true %>
+      Role: <u>Admin</u> ⭐
+    <% else %>
+      Role: <b>User</b>
+    <% end %>
+    <br>
+    [<%= link_to "Logout 🚪🚶", '/logout' %>]
+    <% end %>
+    <br><br>
+    <%= yield %>
+  </body>
+</html>

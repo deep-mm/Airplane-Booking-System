@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reservations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Confirmation Number</th>
+      <th>User</th>
+      <th>Flight</th>
+      <th>Passengers</th>
+      <th>Reservation Class</th>
+      <th>Amenities</th>
+      <th>Cost</th>
+      <th colspan="4">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td><%= reservation.confirmation_number %></td>
+        <td><%= User.find(reservation.user_id).name %></td>
+        <td><%= Flight.find(reservation.flight_id).name %></td>
+        <td><%= reservation.passengers%></td>
+        <td><%= reservation.reservation_class %></td>
+        <td><%= reservation.amenities %></td>
+        <td><%= number_to_currency(reservation.cost) %></td>
+        <td><%= link_to 'Show', reservation %></td>
+        <td><%= link_to 'Manage Baggage', baggages_path(:reservation_id => reservation.id) %></td>
+        <td><%= link_to 'Edit ✏️', edit_reservation_path(reservation) %></td>
+        <td><%= link_to 'Destroy ❌', reservation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '🔙Back', root_path %>

@@ -1,0 +1,72 @@
+<%= form_with(model: reservation) do |form| %>
+  <% if reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+
+      <ul>
+        <% reservation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>Available Seats: <%= @capacity %></p>
+
+  <% if @reservation.new_record? %>
+  <div class="field">
+    <%= form.label :user if current_user["is_admin"]%>
+    <%= form.collection_select :user_id, User.order(:name),:id,:name, {:prompt => 'Select User'} if current_user["is_admin"]%>
+    <%= form.hidden_field :user_id, value: @user.id, :readonly => true if !current_user["is_admin"]%>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :passengers %>
+    <%= form.number_field :passengers, :id => 'passengers', min: 1, :max => @capacity, :value => 1, onchange: "calculateTotalPrice();"  if @reservation.new_record? %>
+    <%= form.number_field :passengers, :id => 'passengers', min: 1, :max => @capacity, onchange: "calculateUpdatedPrice();"  if @reservation.persisted? %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reservation_class %>
+    <%= form.select :reservation_class,  [['First','first'],['Business','business'],['Economy','economy']], {:prompt => 'Select class'} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amenities %>
+    <%= form.select :amenities,  [['None','none'],['Wifi','wifi'],['Meal Preference','meal_preference'],['Extra Leg Room','extra_legroom']], {:prompt => 'Select amenities'} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cost %>
+    <%= form.text_field :cost, :id => 'cost', :value => @flight.cost, :readonly => true if @reservation.new_record?%>
+    <%= form.text_field :cost, :id => 'cost', :readonly => true if @reservation.persisted?%>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :flight_id, value: @flight.id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+    function calculateTotalPrice() {
+        if (!document.getElementById('passengers').value > 0){
+            document.getElementById('passengers').value = 1;
+        }
+        var price = "<%= @flight.cost %>";
+        document.getElementById('cost').value = document.getElementById('passengers').value * price;
+    }
+
+    function calculateUpdatedPrice() {
+        if (!document.getElementById('passengers').value > 0){
+            document.getElementById('passengers').value = 1;
+        }
+        var price = "<%= @flight.cost %>";
+        var old_passengers = "<%= @old_passengers %>";
+        document.getElementById('cost').value = <%= @original_cost %> + (document.getElementById('passengers').value * price) - (old_passengers * price);
+    }
+</script>

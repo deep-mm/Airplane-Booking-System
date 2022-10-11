@@ -1,0 +1,51 @@
+<%= form_with(model: flight) do |form| %>
+  <% if flight.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(flight.errors.count, "error") %> prohibited this flight from being saved:</h2>
+
+      <ul>
+        <% flight.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :flight_class %>
+    <%= form.select :flight_class,  [['Jumbo','jumbo'],['Private','private'],['Small','small']], {:prompt => 'Select class'} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :manufacturer %>
+    <%= form.text_field :manufacturer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :capacity %>
+    <%= form.number_field :capacity, min: @existingCapacity if @flight.persisted?%>
+    <%= form.number_field :capacity, min: 1 if @flight.new_record?%>
+    <%= form.hidden_field :status, value: "available" %>
+  </div>
+  <div class="field">
+    <%= form.label :cost %>
+    <%= form.number_field :cost %>
+  </div>
+  <div class="field">
+    <%= form.label :origin_city %>
+    <%= form.collection_select :origin_city_id, City.order(:name),:id,:name, {:prompt => 'Select Origin City'} %>
+  </div>
+  <div class="field">
+    <%= form.label :destination_city %>
+    <%= form.collection_select :destination_city_id, City.order(:name),:id,:name, {:prompt => 'Select Destination City'} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

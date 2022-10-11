@@ -1,0 +1,6 @@
+<h1>Editing Baggage ✏️</h1>
+
+<%= render 'form', baggage: @baggage %>
+
+<%= link_to 'Show', @baggage %> |
+<%= link_to '🔙Back', baggages_path(:reservation_id => @baggage.reservation_id) %>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Confirmation Number:</strong>
+  <%= @reservation.confirmation_number %>
+</p>
+
+<p>
+  <strong>Flight:</strong>
+  <%= Flight.find(@reservation.flight_id).name %>
+</p>
+
+<p>
+  <strong>Passengers:</strong>
+  <%= @reservation.passengers %>
+</p>
+
+<p>
+  <strong>Reservation Class:</strong>
+  <%= @reservation.reservation_class %>
+</p>
+
+<p>
+  <strong>Amenities:</strong>
+  <%= @reservation.amenities %>
+</p>
+
+<p>
+  <strong>Reservation Cost:</strong>
+  <%= number_to_currency(@reservation.cost) %>
+</p>
+
+<%= link_to 'Edit ✏️', edit_reservation_path(@reservation) %> |
+<%= link_to '🔙Back', reservations_path(:user_id => current_user["id"]) %>

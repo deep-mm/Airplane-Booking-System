@@ -1,0 +1,43 @@
+<%= form_with(model: baggage) do |form| %>
+  <% if baggage.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(baggage.errors.count, "error") %> prohibited this baggage from being saved:</h2>
+
+      <ul>
+        <% baggage.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :weight %>
+    <%= form.number_field :weight, :id => 'weight', min: 1, :value => 1, onchange: "calculateTotalPrice();" if @baggage.new_record?%>
+    <%= form.number_field :weight, :id => 'weight', min: 1, onchange: "calculateTotalPrice();" if @baggage.persisted?%>
+  </div>
+
+  <div class="field">
+    <%= form.label :cost %>
+    <%= form.text_field :cost, :id => 'cost', :value => 5 , :readonly => true if @baggage.new_record?%>
+    <%= form.text_field :cost, :id => 'cost', :readonly => true if @baggage.persisted?%>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :reservation_id, value: @reservation.id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+    function calculateTotalPrice() {
+        if (!document.getElementById('weight').value > 0){
+            document.getElementById('weight').value = 1;
+        }
+        var price = "5";
+        document.getElementById('cost').value = document.getElementById('weight').value * price;
+    }
+</script>

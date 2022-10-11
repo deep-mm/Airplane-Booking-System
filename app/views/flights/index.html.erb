@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Flights</h1>
+
+<%= form_tag "/flights", method: "GET" do %>
+  <%= label_tag :search_by_origin_city %>
+  <%= select_tag :origin_city , options_from_collection_for_select(City.all, :id, :name, params[:origin_city])%>
+  <%= label_tag :search_by_destination_city %>
+  <%= select_tag :destination_city , options_from_collection_for_select(City.all, :id, :name, params[:destination_city])%>
+  <br><br>
+  <%= submit_tag "Search" %>
+<% end %>
+<br>
+<br>
+
+<table>
+  <thead>
+  <tr>
+    <th>Flight Name</th>
+    <th>Origin City</th>
+    <th>Destination City</th>
+    <th>Flight Cost</th>
+    <th>Capacity</th>
+    <th>Flight Status</th>
+    <th>Flight Class</th>
+    <th colspan="3">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @flights.each do |flight| %>
+    <tr>
+      <td><%= flight.name %></td>
+      <td><%= City.find(flight.origin_city_id).name %></td>
+      <td><%= City.find(flight.destination_city_id).name %></td>
+      <td><%= number_to_currency(flight.cost)%></td>
+      <td><%= flight.capacity %></td>
+      <td><%= flight.status %></td>
+      <td><%= flight.flight_class %></td>
+      <td><%= link_to_if flight.status == 'available', '➕Create Reservation', new_reservation_path(:flight_id => flight.id) %></td>
+      <% if current_user["is_admin"] == true %>
+        <td><%= link_to 'Edit ✏️', edit_flight_path(flight) %></td>
+        <td><%= link_to 'Destroy ❌', flight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<br>
+<% if current_user["is_admin"] == true %>
+  <%= link_to '➕Add Flight', new_flight_path %> |
+<% end %>
+<%= link_to '🔙Back', root_path %>

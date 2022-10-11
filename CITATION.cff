@@ -1,0 +1,13 @@
+cff-version: 1.0.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Umasankar"
+  given-names: "Ashwin"
+- family-names: "Mehta"
+  given-names: "Deep"
+- family-names: "Kalgee"
+  given-names: "Kotak"
+title: "OODD-Program-2"
+version: 1.0.0
+date-released: 2022-09-29
+url: "https://github.ncsu.edu/OODD-dmmehta2/OODD-Program-2/tree/v1"

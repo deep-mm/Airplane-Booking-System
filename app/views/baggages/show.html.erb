@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @baggage.weight %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @baggage.cost %>
+</p>
+
+<%= link_to 'Edit ✏️', edit_baggage_path(@baggage) %> |
+<%= link_to '🔙Back', baggages_path(:reservation_id => @baggage.reservation_id) %>

@@ -1,0 +1,20 @@
+<p id=”notice”><%= notice %></p>
+<p>Book flights anytime to go anywhere around the world!</p>
+
+<p id="alert"><%= alert %></p>
+
+<% if current_user %>
+  <%= link_to '🧍View Account', current_user %><br>
+  <%= link_to '🔍Search Flights', flights_path %><br>
+  <%= link_to '🧾Manage Reservations', reservations_path(:user_id => current_user["id"]) %> <br><br><br>
+  <br>
+  <% if current_user["is_admin"] == true %>
+    <b>Admin Console:</b> <br><br>
+    <%= link_to '📒Manage Users', users_path %> |
+    <%= link_to '🌆Manage Cities', cities_path %> |
+    <%= link_to '✈️Manage Flights', flights_path %> <br>
+  <% end %>
+<% else %>
+  <%= link_to "Existing User => 🔐Login", login_path %><br><br>
+  <%= link_to "New User => 🆕Signup", new_user_path %>
+<% end %>

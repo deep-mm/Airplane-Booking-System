@@ -1,0 +1,6 @@
+<h1>Editing Reservation ✏️</h1>
+
+<%= render 'form', reservation: @reservation %>
+
+<%= link_to 'Show', @reservation %> |
+<%= link_to '🔙Back', reservations_path(:user_id => current_user["id"]) %>

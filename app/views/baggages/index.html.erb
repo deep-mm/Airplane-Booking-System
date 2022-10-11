@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Baggages for reservation:  <%= params[:reservation_id] %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Baggage Weight</th>
+      <th>Baggage Cost</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @baggages.each do |baggage| %>
+      <tr>
+        <td><%= baggage.weight %></td>
+        <td><%= baggage.cost %></td>
+        <td><%= link_to 'Edit ✏️', edit_baggage_path(baggage) %></td>
+        <td><%= link_to 'Destroy ❌', baggage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '➕Add Baggage', new_baggage_path(:reservation_id => params[:reservation_id]) %> |
+<%= link_to '🔙Back', reservations_path(:user_id => current_user["id"]) %>
