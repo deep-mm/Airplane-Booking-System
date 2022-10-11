@@ -3,7 +3,7 @@
 Airplane booking system can be used to browse and book flights.
 This system has been developed using Ruby on Rails as part of OODD coursework at NCSU.
 
-[![Ruby Test and Deploy](https://github.ncsu.edu/OODD-dmmehta2/OODD-Program-2/actions/workflows/build-deploy.yml/badge.svg)](https://github.ncsu.edu/OODD-dmmehta2/OODD-Program-2/actions/workflows/build-deploy.yml)
+[![Ruby Test and Deploy](https://github.com/deep-mm/Airplane-Booking-System/actions/workflows/build-deploy.yml/badge.svg)](https://github.com/deep-mm/Airplane-Booking-System/actions/workflows/build-deploy.yml)
 
 The User of the system can perform following tasks:
 1. Search Flights
